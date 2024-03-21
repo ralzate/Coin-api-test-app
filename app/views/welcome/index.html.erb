@@ -1,0 +1,53 @@
+<h1 class="text-center">Cryptomonedas</h1>
+
+<div class="container">
+    <div class="row">
+        <%= render 'crypto_form', crypto_name: 'Bitcoin', crypto_image_name: 'Bitcoin.svg.webp', crypto_price: @bitcoin_price['rate'], crypto_id: 'bitcoin' %>
+        <%= render 'crypto_form', crypto_name: 'Ethereum', crypto_image_name: 'Ethereum_logo_translucent.svg', crypto_price: @ethereum_price['rate'], crypto_id: 'ethereum' %>
+        <%= render 'crypto_form', crypto_name: 'Cardano', crypto_image_name: 'cardano-cryptocurrency-icon-512x512-x99hiphg.png', crypto_price: @cardano_price['rate'], crypto_id: 'cardano' %>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h5 class="card-title">Valor criptomnoedas</span></h5>
+        </div>
+        <div class="col-md-6">
+            <%= render 'export_form' %>
+        </div>
+        <br>
+        <div class="col-lg-12">
+            <div class="">
+                <div class="table-responsive">
+                    <table class="table project-list-table table-nowrap align-middle table-borderless">
+                        <thead>
+                            <tr>
+                                <th scope="col">IDENTIFICADOR</th>
+                                <th scope="col">CRIPTOMONEDA</th>
+                                <th scope="col">PRECIO</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%= render 'crypto_row', crypto_name: 'Bitcoin', crypto_image_name: 'Bitcoin.svg.webp', crypto_price: @bitcoin_price['rate'], crypto_id: 'bitcoin' %>
+                            <%= render 'crypto_row', crypto_name: 'Ethereum', crypto_image_name: 'Ethereum_logo_translucent.svg', crypto_price: @ethereum_price['rate'], crypto_id: 'ethereum' %>
+                            <%= render 'crypto_row', crypto_name: 'Cardano', crypto_image_name: 'cardano-cryptocurrency-icon-512x512-x99hiphg.png', crypto_price: @cardano_price['rate'], crypto_id: 'cardano' %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+

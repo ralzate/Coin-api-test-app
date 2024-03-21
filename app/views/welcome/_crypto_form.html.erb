@@ -1,0 +1,88 @@
+<div class="col-md-4">
+  <div class="card user-card">
+      <div class="card-header">
+          <h5><%= crypto_name %></h5>
+      </div>
+      <div class="card-block">
+          <div class="user-image">
+              <%= image_tag("#{crypto_image_name}", size: '100x100', class: "img-radius", alt: crypto_name) %>
+          </div>
+          <h6 class="f-w-600 m-t-25 m-b-10">Precio actual: <strong>$<%= crypto_price %></strong></h6>
+          <p class="text-muted">Rendimiento mensual: <strong>5%</strong></p>
+          <hr>
+          <p class="text-muted m-t-15">Cantidad a invertir</p>
+          <div class="counter-block m-t-10 p-20">
+              <div class="row">
+                  <div class="col-12">
+                      <input style="background-color: rgba(39, 144, 35, 0.616); color: white;" type="number"
+                        id="<%= "#{crypto_id}-amount" %>" class="d-block form-control text-center"
+                        placeholder="Ingresa cantidad dólares a invertir">
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-6">
+                      <p class="text-muted m-t-15">Ganancia total anual</p>
+                  </div>
+                  <div class="col-6">
+                      <output style="background-color: black; color: white;" type="number" class="d-block form-control"
+                        id="<%= "#{crypto_id}-yield" %>" disabled>0</output>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-6">
+                      <p class="text-muted m-t-15">Balance total anual</p>
+                  </div>
+                  <div class="col-6">
+                      <output style="background-color: black; color: white;" type="number" class="d-block form-control"
+                        id="<%= "#{crypto_id}-total-yield" %>" disabled>0</output>
+                  </div>
+              </div>
+          </div>
+          <hr>
+          <button type="button" class="btn btn-outline-primary my-3 calculate-yield" data-crypto-id="<%= crypto_id %>">Calcular</button>
+      </div>
+  </div>
+</div>
+
+
+<script>
+  const calculateYield = (cryptoId, cryptoPrice) => {
+    const amountInput = document.getElementById(`${cryptoId}-amount`);
+    const yieldOutput = document.getElementById(`${cryptoId}-yield`);
+    const totalYieldOutput = document.getElementById(`${cryptoId}-total-yield`);
+    const totalOutput = document.getElementById(`${cryptoId}-total`);
+    const monthlyReturn = 0.05; 
+
+    const amount = parseFloat(amountInput.value);
+    const annualYield = amount * monthlyReturn * 12;
+    const totalAnnual = amount + annualYield;
+    
+    yieldOutput.value = annualYield.toFixed(2);
+    totalYieldOutput.value = totalAnnual.toFixed(2);
+    const totalInBTC = totalAnnual / cryptoPrice;
+    totalOutput.value = totalInBTC.toFixed(8);
+  };
+
+  document.querySelectorAll('.calculate-yield').forEach(btn => {
+    btn.addEventListener('click', (event) => {
+      const cryptoId = event.target.dataset.cryptoId;
+      let cryptoPrice;
+
+      switch (cryptoId) {
+        case 'bitcoin':
+          cryptoPrice = <%= @bitcoin_price['rate'] %>;
+          break;
+        case 'ethereum':
+          cryptoPrice = <%= @ethereum_price['rate'] %>;
+          break;
+        case 'cardano':
+          cryptoPrice = <%= @cardano_price['rate'] %>;
+          break;
+        default:
+          cryptoPrice = 0; 
+      }
+
+      calculateYield(cryptoId, cryptoPrice); 
+    });
+  });
+</script>

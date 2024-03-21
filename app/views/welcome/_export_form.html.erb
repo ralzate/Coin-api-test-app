@@ -1,0 +1,8 @@
+<%= form_tag '/welcome/export' do %>
+  <%= hidden_field_tag :bitcoin_price_export, @bitcoin_price %>
+  <%= hidden_field_tag :ethereum_price_export, @ethereum_price %>
+  <%= hidden_field_tag :cardano_price_export, @cardano_price %>
+  <%= submit_tag "Descargar CSV", name: 'commit', value: 'Descargar CSV', class: "btn btn-success" %>
+  <%= submit_tag "Descargar EXCEL", name: 'commit', value: 'Descargar EXCEL', class: "btn btn-success" %>
+  <%= submit_tag "Descargar JSON", name: 'commit', value: 'Descargar JSON', class: "btn btn-success" %>
+<% end %>
